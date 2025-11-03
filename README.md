@@ -24,7 +24,7 @@ Este repositório contém as configurações e códigos para criar a interface w
 │   ├── main_aposentabot.yml    # Deploy automático via GitHub Actions
 │
 ├── backend/
-│   ├── chat_connector.py       # Conexão com endpoint Databricks
+│   ├── chat_connector.py        # Conexão com endpoint Databricks
 │   └── .env.dev                 # Template de variáveis para desenvolvimento
 │
 ├── static/
