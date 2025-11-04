@@ -468,28 +468,3 @@ body {
         font-size: 0.9rem;
     }
 }
-
-/* Modo escuro (opcional) */
-@media (prefers-color-scheme: dark) {
-    .chat-container {
-        background: var(--gray-800);
-        color: var(--white);
-    }
-    
-    .chat-input-area {
-        background: var(--gray-700);
-        border-color: var(--gray-600);
-    }
-    
-    .input-group {
-        background: var(--gray-700);
-    }
-    
-    .chat-input {
-        color: var(--white);
-    }
-    
-    .chat-input::placeholder {
-        color: var(--gray-400);
-    }
-}
