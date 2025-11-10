@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 import os
 import json
 from datetime import datetime
 from backend.chat_connector import send_question
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 @app.route('/')
 def index():
@@ -13,6 +14,9 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     try:
+        if 'chat_history' not in session:
+            session['chat_history'] = [{"role": "system", "content": ''}]
+
         data = request.get_json()
         user_message = data.get('message', '').lower().strip()
         
@@ -21,10 +25,23 @@ def chat():
                 'status': 'error',
                 'message': 'Mensagem vazia'
             })
-        
-        system_message = ''
-        response_text = send_question(system_message, user_message)
-        
+
+        session['chat_history'].append(
+            {"role": "user",
+                "content": user_message
+            }
+        )
+        session.modified = True
+
+        response_text = send_question(session['chat_history'])
+
+        session['chat_history'].append(
+            {"role": "system",
+                "content": response_text
+            }
+        )
+        session.modified = True
+
         return jsonify({
             'status': 'success',
             'response': response_text,

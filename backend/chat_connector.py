@@ -17,20 +17,12 @@ def format_response(response_content):
         return 'Desculpe, houve um erro. Tente novamente.'
 
 
-def send_question(system_message, user_message) -> str:
+def send_question(messages) -> str:
 
     workspace_url = DATABRICKS_HOST
     endpoint_name = SERVING_ENDPOINT
     databricks_token = DATABRICKS_TOKEN
- 
-    messages = [
-        {"role": "system",
-         "content": system_message
-        },
-        {"role": "user",
-         "content": user_message
-        }
-    ]
+
     max_tokens = 400
 
     url = f"{workspace_url.rstrip('/')}/serving-endpoints/{endpoint_name}/invocations"
